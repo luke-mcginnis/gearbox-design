@@ -1,0 +1,221 @@
+\tikzmath{
+  \startx = 1.5;
+  \coloff = 12;
+  \shafty = 18.5;
+  \sheary = 12.5;
+  \momenty = 6.5;
+  \torquey = 0;
+  \beamlen = 9;
+  \xs = 8/13;
+  \x0 = \startx + 0.5;
+  \x1 = \startx + 5.5*\xs;
+  \x2 = \startx + 8*\xs;
+  \x3 = \startx + 11*\xs;
+  \x4 = \startx + 13*\xs + 0.5;
+  \forceyone = 4000;
+  \forceytwo = 3000;
+  \shearyval1 = 2;
+  \shearyval2 = 1.5;
+  \momentyval1 = -3128/3000;
+  \momentyval2 = 0;
+  \momentyval3 = 5408/3000;
+  \forcezone = 3500;
+  \forceztwo = 2500;
+  \shearzval1 = -1353/2000;
+  \shearzval2 = 2977/2000;
+  \momentzval1 = -1;
+  \momentzval2 = 0;
+  \momentzval3 = -2;
+}
+
+\begin{tikzpicture}[x=0.25in, y=0.25in, background rectangle/.style={fill=cyan!10}, show background rectangle]
+    % \draw[help lines, step=0.25in] (0,0) grid (24, 24); % TEMP HELPER GRID
+
+
+
+    % === FORCE DIAGRAM - Y COLUMN ===
+    \draw[thick, fill=white] (\startx,\shafty) rectangle (\startx+\beamlen,\shafty+1);
+    \draw[dash pattern=on 2pt off 3pt on 8pt off 3pt] (\startx - 0.5, \shafty + 0.5) -- (\startx + \beamlen + 0.5, \shafty + 0.5) node [right] {$x$};
+    \draw (\x0, \shafty + 1.125) -- (\x0, \shafty + 3) node [above] {$y$};
+
+    % Left support
+    \draw (\startx, \shafty) -- (\startx+1, \shafty+1);
+    \draw (\startx, \shafty+1) -- (\startx+1, \shafty);
+    \draw (\startx+1, \shafty) -- (\startx+1, \shafty+1);
+
+    % Right support
+    \draw (\startx+\beamlen-1, \shafty) -- (\startx+\beamlen, \shafty+1);
+    \draw (\startx+\beamlen-1, \shafty+1) -- (\startx+\beamlen, \shafty);
+    \draw (\startx+\beamlen-1, \shafty) -- (\startx+\beamlen-1, \shafty+1);
+
+    % Middle support
+    \draw (\x2-0.5, \shafty) -- (\x2+0.5, \shafty+1);
+    \draw (\x2-0.5, \shafty) -- (\x2-0.5, \shafty+1);
+    \draw (\x2-0.5, \shafty+1) -- (\x2+0.5, \shafty);
+    \draw (\x2-0.5, \shafty) -- (\x2+0.5, \shafty+1);
+    \draw (\x2+0.5, \shafty) -- (\x2+0.5, \shafty+1);
+
+
+    % Reactions
+    \draw[ultra thick, stealth-] (\x0, \shafty+1) -- (\x0, \shafty+2) node[right] {$R_{ay}$};
+    \draw[ultra thick, stealth-] (\x2, \shafty) -- (\x2, \shafty-1.1) node[below] {$R_{by}$};
+
+    \draw[ultra thick, stealth-] (\x4, \shafty) -- (\x4, \shafty-1.5) node[below] {$R_{cy}$};
+
+
+    % Loads
+    \draw[ultra thick, stealth-] (\x1, \shafty) -- (\x1, \shafty-1.5) node[below] {$W_{34}^r$};
+    \draw[ultra thick, stealth-] (\x3, \shafty+1) -- (\x3, \shafty+3) node[above] {$W_{56}^r$};
+
+    % % Dimensions
+    % \draw[thick, stealth-stealth] (\x0 + 1/36, \shafty-0.5) -- (\x1 - 1/36, \shafty-0.5) node [midway, fill=cyan!10] {1};
+    % \draw (\x1, \shafty - 0.625) -- (\x1, \shafty - 0.125);
+
+    % \draw[thick, stealth-stealth] (\x0 + 1/36, \shafty - 1.0) -- (\x2 - 1/36, \shafty - 1.0) node [midway, fill=cyan!10] {2};
+    % \draw (\x2, \shafty - 1.125) -- (\x2, \shafty - 0.125);
+
+    % \draw[thick, stealth-stealth] (\x0 + 1/36, \shafty - 1.5) -- (\x3 - 1/36, \shafty - 1.5) node [midway, fill=cyan!10] {3};
+
+
+    % === SHEAR - Y ===
+    \draw[fill=white] (\x0, \sheary) rectangle (\x1, \sheary-0.53);
+    \fill[fill=white] (\x1, \sheary) rectangle (\x2, \sheary-0.53+1.7);
+    \fill[fill=white] (\x2, \sheary) rectangle (\x3, \sheary-0.53+1.7+0.84);
+    \fill[fill=white] (\x3, \sheary) rectangle (\x4, \sheary-0.53+1.7+0.84-4);
+    \draw (\x0, \sheary) node [left] {$O$} -- (\x0 + \beamlen, \sheary) node [right] {$x$};
+    \draw (\x0, \sheary+2.5) node [left] {$V_{xz} (\unit{lbf})$} -- (\x0, \sheary-2.5);
+
+    \draw[very thick] 
+        (\x0, \sheary) -- 
+        (\x0, \sheary-0.53) -- 
+        (\x1, \sheary-0.53) node[midway, below] {$-569$} -- 
+        (\x1, \sheary-0.53+1.7) -- 
+        (\x2, \sheary-0.53+1.7) node[midway, above] {$1255$} -- 
+        (\x2, \sheary-0.53+1.7+0.84) -- 
+        (\x3, \sheary-0.53+1.7+0.84) node[midway, above] {$2161$} -- 
+        (\x3, \sheary-0.53+1.7+0.84-4) -- 
+        (\x4, \sheary-0.53+1.7+0.84-4) node[midway, below] {$2161$} -- 
+        (\x4, \sheary);
+
+    % === MOMENT - Y ===
+    \fill[white] (\x0, \momenty) -- 
+        (\x1, \momenty+\momentyval1) -- 
+        (\x2, \momenty+\momentyval2) -- 
+        (\x3, \momenty+\momentyval3) -- 
+        (\x4, \momenty) -- cycle;
+    \draw (\x0, \momenty) node [left] {$O$} -- (\x0 + \beamlen, \momenty) node [right] {$x$};
+    \draw (\x0, \momenty+2.5) node [align=center, left] {$M_{xz}$\\$(\unit{lbf\cdot in})$} -- (\x0, \momenty-2.5);
+    \draw[very thick] 
+        (\x0, \momenty) -- 
+        (\x1, \momenty+\momentyval1) node [below] {$-3128$} -- 
+        (\x2, \momenty+\momentyval2) -- 
+        (\x3, \momenty+\momentyval3) node [above] {$5408$} -- 
+        (\x4, \momenty);
+
+    % === TORSION ===
+    \draw (\x0, \torquey) node [left] {$O$} -- (\x0 + \beamlen, \torquey) node [right] {$x$};
+    \draw (\x0, \torquey+2.5) node [align=center, left] {$T$\\$(\unit{lbf\cdot in})$} -- (\x0, \torquey);
+    \draw[fill=white] (\x1, \torquey) rectangle (\x3, \torquey+\shearyval2);
+    \draw[very thick] 
+        (\x0, \torquey) -- 
+        (\x1, \torquey) -- 
+        (\x1, \torquey+\shearyval2) -- 
+        (\x3, \torquey+\shearyval2) node[midway, above] {$27424$} -- 
+        (\x3, \torquey+\shearyval2)  -- 
+        (\x3, \torquey) --
+        (\x4, \torquey);
+
+
+    
+    % === FORCE DIAGRAM - Z COLUMN ===
+    \draw[thick, fill=white] (\startx + \coloff, \shafty) rectangle (\startx + \beamlen + \coloff, \shafty + 1);
+    \draw[dash pattern=on 2pt off 3pt on 8pt off 3pt] (\startx - 0.5 + \coloff, \shafty + 0.5) -- (\startx + \beamlen + 0.5 + \coloff, \shafty + 0.5) node [right] {$x$};
+    \draw (\x0 + \coloff, \shafty + 1.125) -- (\x0 + \coloff, \shafty + 3) node [above] {$z$};
+
+    % Supports
+    \draw (\startx + \coloff, \shafty) -- (\startx + 1 + \coloff, \shafty + 1);
+    \draw (\startx + \coloff, \shafty + 1) -- (\startx + 1 + \coloff, \shafty);
+    \draw (\startx + 1 + \coloff, \shafty) -- (\startx + 1 + \coloff, \shafty + 1);
+    \draw (\startx + \beamlen - 1 + \coloff, \shafty) -- (\startx + \beamlen + \coloff, \shafty + 1);
+    \draw (\startx + \beamlen - 1 + \coloff, \shafty + 1) -- (\startx + \beamlen + \coloff, \shafty);
+    \draw (\startx + \beamlen - 1 + \coloff, \shafty) -- (\startx + \beamlen - 1 + \coloff, \shafty + 1);
+
+    % Middle support
+    \draw (\x2-0.5 + \coloff, \shafty) -- (\x2+0.5+ \coloff, \shafty+1);
+    \draw (\x2-0.5 + \coloff, \shafty) -- (\x2-0.5+ \coloff, \shafty+1);
+    \draw (\x2-0.5 + \coloff, \shafty+1) -- (\x2+0.5+ \coloff, \shafty);
+    \draw (\x2-0.5 + \coloff, \shafty) -- (\x2+0.5+ \coloff, \shafty+1);
+    \draw (\x2+0.5 + \coloff, \shafty) -- (\x2+0.5+ \coloff, \shafty+1);
+
+    % Reactions
+    \draw[ultra thick, stealth-] (\x0 + \coloff, \shafty+1) -- (\x0 + \coloff, \shafty+2) node[right] {$R_{az}$};
+    \draw[ultra thick, stealth-] (\x2 + \coloff, \shafty+1) -- (\x2 + \coloff, \shafty+2.3) node[above] {$R_{bz}$};
+    \draw[ultra thick, stealth-] (\x4 + \coloff, \shafty+1) -- (\x4 + \coloff, \shafty+2.2) node[above] {$R_{cz}$};
+
+    % Loads
+    \draw[ultra thick, stealth-] (\x1 + \coloff, \shafty) -- (\x1 + \coloff, \shafty-1) node[below] {$W_{34}^t$};
+    \draw[ultra thick, stealth-] (\x3 + \coloff, \shafty) -- (\x3 + \coloff, \shafty-1.75) node[below] {$W_{56}^t$};
+
+    % Dimensions - Z column
+    % \draw[thick, stealth-stealth] (\x0 + \coloff + 1/36, \shafty - 0.5) -- (\x1 + \coloff - 1/36, \shafty - 0.5) node [midway, fill=cyan!10] {1};
+    % \draw (\x1 + \coloff, \shafty - 0.625) -- (\x1 + \coloff, \shafty - 0.125);
+
+    % \draw[thick, stealth-stealth] (\x0 + \coloff + 1/36, \shafty - 1.0) -- (\x2 + \coloff - 1/36, \shafty - 1.0) node [midway, fill=cyan!10] {2};
+    % \draw (\x2 + \coloff, \shafty - 1.125) -- (\x2 + \coloff, \shafty - 0.125);
+
+    % \draw[thick, stealth-stealth] (\x0 + \coloff + 1/36, \shafty - 1.5) -- (\x3 + \coloff - 1/36, \shafty - 1.5) node [midway, fill=cyan!10] {3};
+
+    % === SHEAR - Z ===
+    \draw (\x0 + \coloff, \sheary) node [left] {$O$} -- (\x0 + \beamlen + \coloff, \sheary) node [right] {$x$};
+    \draw (\x0 + \coloff, \sheary+2.5) node [left] {$V_{xy} (\unit{lbf})$} -- (\x0 + \coloff, \sheary - 2.5);
+    \draw[fill=white] (\x0 + \coloff, \sheary) rectangle (\x1 + \coloff, \sheary+\shearzval1);
+    \draw[fill=white] (\x1 + \coloff, \sheary) rectangle (\x2 + \coloff, \sheary+\shearzval2);
+    \draw[fill=white] (\x2 + \coloff, \sheary) rectangle (\x3 + \coloff, \sheary-5/2);
+    \draw[fill=white] (\x3 + \coloff, \sheary) rectangle (\x4 + \coloff, \sheary+5/2);
+    \draw[very thick]
+        (\x0 + \coloff, \sheary) --
+        (\x0 + \coloff, \sheary+\shearzval1) --
+        (\x1 + \coloff, \sheary+\shearzval1) node[midway, below] {$-1353$} --
+        (\x1 + \coloff, \sheary+\shearzval2) --
+        (\x2 + \coloff, \sheary+\shearzval2) node[midway, above] {$2977$} --
+        (\x2 + \coloff, \sheary-5/2) --
+        (\x3 + \coloff, \sheary-5/2) node[midway, below] {$-5142$}--
+        (\x3 + \coloff, \sheary+5/2) --
+        (\x4 + \coloff, \sheary+5/2) node[midway, above] {$5142$} --
+        (\x4 + \coloff, \sheary);
+
+
+
+    % === MOMENT - Z ===
+    \fill[white] (\x0 + \coloff, \momenty) --
+        (\x1 + \coloff, \momenty+\momentzval1) --
+        (\x2 + \coloff, \momenty+\momentzval2) --
+        (\x3 + \coloff, \momenty) -- cycle;
+    \fill[white] (\x2 + \coloff, \momenty) --
+        (\x3 + \coloff, \momenty+\momentzval3) --
+        (\x4 + \coloff, \momenty+\momentzval2) -- cycle;
+    \draw (\x0 + \coloff, \momenty) node [left] {$O$} -- (\x0 + \beamlen + \coloff, \momenty) node [right] {$x$};
+    \draw (\x0 + \coloff, \momenty+2.5) node [align=center, left] {$M_{xy}$\\$(\unit{lbf\cdot in})$} -- (\x0 + \coloff, \momenty-2.5);
+    \draw[very thick]
+        (\x0 + \coloff, \momenty) --
+        (\x1 + \coloff, \momenty+\momentzval1) node[below] {$-7442$} --
+        (\x2 + \coloff, \momenty+\momentzval2) --
+        (\x3 + \coloff, \momenty+\momentzval3) node[below] {$-12855$}--
+        (\x4 + \coloff, \momenty);
+
+
+    % === MOMENT - COMB ===
+    \fill[white] (\x0 + \coloff, \torquey) --
+        (\x1 + \coloff, \torquey+1.3) --
+        (\x2 + \coloff, \torquey) --
+        (\x3 + \coloff, \torquey + 2.25) --
+        (\x4 + \coloff, \torquey) -- cycle;
+    \draw (\x0 + \coloff, \torquey) node [left] {$O$} -- (\x0 + \beamlen + \coloff, \torquey) node [right] {$x$};
+    \draw (\x0 + \coloff, \torquey+2.5) node [align=center, left] {$M_{total}$\\$(\unit{lbf\cdot in})$} -- (\x0 + \coloff, \torquey);
+    \draw[very thick]
+        (\x0 + \coloff, \torquey) --
+        (\x1 + \coloff, \torquey+1.3) node[above] {$8072$} --
+        (\x2 + \coloff, \torquey) --
+        (\x3 + \coloff, \torquey+2.25) node[above] {$13944$} --
+        (\x4 + \coloff, \torquey);
+\end{tikzpicture}
